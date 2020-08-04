@@ -1,7 +1,20 @@
 # WeChat-DataBase-Export
+
 微信数据库，导出微信收藏等
 
-## 1. 使用到的 系统/软件 版本信息
+<span id="home">目录</span>
+
+* [1. 使用到的 系统/软件 版本信息](#1)
+
+* [2. 使用lldb调试获取数据库密码](#2)
+
+* [3. 打开数据库并查看数据](#3)
+
+* [4. 使用python清洗数据并导出](#4)
+  * [4.1 准备工作](#4-1)
+  * [4.2 开始导出](#4-2)
+
+<h2 id="1">1. 使用到的 系统/软件 版本信息</h2>
 
 * macOS（Mojave 10.14）虚拟机安装教程[点击这里](https://github.com/Gaiokane/WeChat-DataBase-Export/blob/master/vm%20install%20macos.pdf "点击跳转")
 * 微信（mac版2.4.2）
@@ -9,7 +22,9 @@
 * lldb（1001.0.13.3）（使用时可以自动安装）
 * python（2.7.10）（版本无所谓）
 
-## 2.使用lldb调试获取数据库密码
+[返回目录](#home)
+
+<h2 id="2">2. 使用lldb调试获取数据库密码</h2>
 
 ````
 1. 打开微信
@@ -46,7 +61,9 @@
 9.  回车后返回的一串0x开头的66位字符串就是数据库密码
 ````
 
-## 3. 打开数据库并查看数据
+[返回目录](#home)
+
+<h2 id="3">3. 打开数据库并查看数据</h2>
 
 ````
 1. 打开终端输入以下
@@ -69,23 +86,33 @@
 * Group - group_new.db - 群聊和群成员信息
 * Message - {msg_0.db - msg_9.db} - 聊天记录和公众号文章
 
-## 4. 使用python清洗数据并导出
+[返回目录](#home)
 
-### 4.1 准备工作
+<h2 id="4">4. 使用python清洗数据并导出</h2>
+
+<h3 id="4-1">4.1 准备工作</h3>
 
 使用DB Browser for SQLite打开数据库，点击任务栏中 工具>设置加密>OK，禁用数据库加密，以便之后使用python读取数据
 
-### 4.2 开始导出
+[返回目录](#home)
+
+<h3 id="4-2">4.2 开始导出</h3>
 
 此处以python3为例，确保已安装python3，并添加相应环境变量
 
 下载[WeChat_Favorites_Export.py](https://github.com/Gaiokane/WeChat-DataBase-Export/blob/master/WeChat_Favorites_Export.py "点击跳转")到本地
 
+````
 修改WeChat_Favorites_Export.py中的第7行，favorites.db文件所在路径
 
-在WeChat_Favorites_Export.py目录中按住shift+鼠标右键打开命令提示符/powershell，执行python .\WeChat_Favorites_Export.py
+在WeChat_Favorites_Export.py目录中按住shift+鼠标右键打开命令提示符/powershell
+
+执行python .\WeChat_Favorites_Export.py
 
 导出结果在WeChat_Favorites_Export.txt中
+````
+
+[返回目录](#home)
 
 ———————————————————————————————————
 
