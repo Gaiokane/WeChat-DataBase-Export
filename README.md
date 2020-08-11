@@ -112,6 +112,8 @@
 导出结果在WeChat_Favorites_Export.txt中
 ````
 
+注意：后期收藏内容有变，若要将db文件单独复制出来重新执行py导出操作时，需将favorites.db、favorites.db-shm、favorites.db-wal这三个文件放置在同一路径下，打开数据库并禁用密码，新增数据会保存在favorites.db-shm、favorites.db-wal中，如果只拷贝favorites.db并打开会发现还是之前的数据没有变化
+
 [返回目录](#home)
 
 ———————————————————————————————————
