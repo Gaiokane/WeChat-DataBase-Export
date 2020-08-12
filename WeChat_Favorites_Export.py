@@ -4,7 +4,7 @@ import re
 import html
 
 # 该行修改favorites.db文件所在路径，确保db文件已禁用加密
-conn = sqlite3.connect('D:/share/favorites.db')
+conn = sqlite3.connect('D:/share/WeChat DB/favorites.db')
 
 c = conn.cursor()
 
