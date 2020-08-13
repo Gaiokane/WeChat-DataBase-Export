@@ -23,33 +23,6 @@ def xml_substring(start_str, end_str, str):
     #返回值list转string
     return ''.join(re.findall(rex, str))
 
-""" # 存放结果
-out = ''
-
-# 序号自增
-i = 1
-
-for xml in result:
-    # list转string
-    xml_str = ''.join(xml)
-    # 取出pagetitle、link并进行反转义
-    pagetitle = html.unescape(xml_substring('<pagetitle>', '</pagetitle>', xml_str))
-    link = html.unescape(xml_substring('<link>', '</link>', xml_str))
-    # 拼接输出内容
-    out += str(i) + '）' + pagetitle + '\n' + link + '\n\n'
-    # 序号+1
-    i += 1
-
-# 输出文件
-with open('WeChat_Favorites_Export.txt', 'w+', encoding='utf-8') as f:
-    f.write(out)
-
-c.close()
-
-conn.close()
-
-print('导出成功') """
-
 all_Keywords = []
 
 for xml in result:
@@ -57,9 +30,7 @@ for xml in result:
     xml_str = ''.join(xml)
     # 取出pagetitle、link并进行反转义
     pagetitle = html.unescape(xml_substring('<pagetitle>', '</pagetitle>', xml_str))
-    #关键词提取
-    #print(HanLP.extractKeyword(pagetitle, 100))
-    #循环中的元组合并
+    #关键词提取，循环中的元组合并
     all_Keywords += HanLP.extractKeyword(pagetitle, 100)
 
 #打印合并后的元组
@@ -68,30 +39,30 @@ for xml in result:
 #打印元组中出现最多次数的元素
 #print(max(all_Keywords, key=all_Keywords.count))
 
-#统计元组中元素出现的次数并降序显示
-def count_sort(str):
-    #from collections import Counter
-    
-    #str = ['Tom', 'Sim', 'Jack', 'Tom', 'Sleep', 'We', 'Tom', 'Tom', 'Sim', 'We', 'Tom']
-    dic = Counter(str)
+# 存放结果
+out = ''
+
+#统计元组中元素出现的次数并排序显示
+def count_sort(strs):
     
     #1.统计各元素出现的次数，一行显示一个
-    """ for i in dic.items():
+    """ dic = Counter(strs)
+    for i in dic.items():
         print(i[0], i[1]) """
     
     #2.字典形式统计各元素出现的次数，不排序/降序
     count = 1
-    l = len(str)-1
+    l = len(strs)-1
     x = {}
     t = 0
     
     while t <= l:
-        th = str[t]
+        th = strs[t]
         i = t + 1
         while i <= l:
-            if th == str[i]:
+            if th == strs[i]:
                 count += 1
-                del str[i]
+                del strs[i]
                 i -= 1
                 l -= 1
             i += 1
@@ -102,28 +73,26 @@ def count_sort(str):
     #print(x)
     #降序
     y = sorted(x.items(), key=lambda x: x[1], reverse=True)
-    print(y)
+    #print(y)
     
     #显示出现次数最多的前三名
     """ three = (y[0], y[1], y[2])
     for t in three:
         print(t[0]) """
     
-    #
-    """ item = x.items()
-    #item.sort()
-    #sorted(item,key=itemgetter(1))
-    sorted(item,key=lambda x: x[1], reverse=True)
-    for k,v in item:
-        print(k,v) """
+    #降序一行一个 输出
+    for k,v in y:
+        #print(k,v)
+        global out
+        out += k + ' ' + str(v) + '\n'
 
-    """ item = x.items()
-    print(item)
-    #item.sort()
-    #sorted(item,key=itemgetter(1))
-    sorted(item,key=lambda x: x[1])
-    print(item)
-    for k,v in item:
-        print(k,v) """
+    return out
 
 count_sort(all_Keywords)
+#print(count_sort(all_Keywords))
+
+# 输出文件
+with open('WeChat_Favorites_Automatic_Category.txt', 'w+', encoding='utf-8') as f:
+    f.write(out)
+
+print('导出成功')
