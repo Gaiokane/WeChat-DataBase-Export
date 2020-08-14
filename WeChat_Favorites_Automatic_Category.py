@@ -43,8 +43,10 @@ for xml in result:
 out = ''
 
 #统计元组中元素出现的次数并排序显示
-def count_sort(strs):
+def count_sort(strs,type):
     
+    out = ''
+
     #1.统计各元素出现的次数，一行显示一个
     """ dic = Counter(strs)
     for i in dic.items():
@@ -71,6 +73,13 @@ def count_sort(strs):
         t += 1
     #不排序
     #print(x)
+    if type & 1 != 0:
+        #global out
+        out += str(x) + '\n'
+    
+    if type == 3 or type == 5 or type == 7:
+        out += '——————————————————————————————————————————' + '\n'
+
     #降序
     y = sorted(x.items(), key=lambda x: x[1], reverse=True)
     #print(y)
@@ -79,20 +88,32 @@ def count_sort(strs):
     """ three = (y[0], y[1], y[2])
     for t in three:
         print(t[0]) """
+    if type & 2 != 0:
+        three = (y[0], y[1], y[2])
+        for t in three:
+            #global out
+            out += t[0] + '\n'
+    
+    if type == 7:
+        out += '——————————————————————————————————————————' + '\n'
     
     #降序一行一个 输出
-    for k,v in y:
+    """ for k,v in y:
         #print(k,v)
         global out
-        out += k + ' ' + str(v) + '\n'
+        out += k + ' ' + str(v) + '\n' """
+    if type & 4 != 0:
+        for k,v in y:
+            #global out
+            out += k + ' ' + str(v) + '\n'
 
     return out
 
-count_sort(all_Keywords)
-#print(count_sort(all_Keywords))
+#count_sort(all_Keywords,7)
+#print(count_sort(all_Keywords,3))
 
 # 输出文件
 with open('WeChat_Favorites_Automatic_Category.txt', 'w+', encoding='utf-8') as f:
-    f.write(out)
+    f.write(count_sort(all_Keywords,7))
 
 print('导出成功')
